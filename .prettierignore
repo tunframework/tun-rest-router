@@ -1,0 +1,4 @@
+dist/
+CHANGELOG.md
+.prettierignore
+pnpm-lock.yaml
