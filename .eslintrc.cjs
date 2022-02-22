@@ -112,7 +112,7 @@ module.exports = defineConfig({
     // https://stackoverflow.com/questions/61024198/eslint-conflicts-with-eslint-plugin-import-and-typescript-eslint
     'node/no-unsupported-features/es-syntax': [
       'error',
-      { ignores: ['modules'] }
+      { ignores: ['modules', 'dynamicImport'] }
     ],
     'node/no-extraneous-import': [
       'error',

@@ -18,6 +18,7 @@ specifiers:
   standard-version: ^9.3.2
   ts-mocha: ^9.0.2
   ts-node: ^10.5.0
+  tun: ssh://git@abcssh.pwwhb.com:39802/tunframework/tun.git#v1.1.1
   typescript: ^4.5.5
 
 dependencies:
@@ -40,6 +41,7 @@ devDependencies:
   standard-version: registry.npmmirror.com/standard-version/9.3.2
   ts-mocha: registry.npmmirror.com/ts-mocha/9.0.2_mocha@9.2.1
   ts-node: registry.npmmirror.com/ts-node/10.5.0_003c8a6da24af261bf8b8ce51aec1adf
+  tun: abcssh.pwwhb.com+39802/tunframework/tun/f64fbf934628b9e3f2d3e6786afd5d22dc6f7361
   typescript: registry.npmmirror.com/typescript/4.5.5
 
 packages:
@@ -47,6 +49,13 @@ packages:
   /he/1.2.0:
     resolution: {integrity: sha1-hK5l+n6vsWX922FWauFLrwVmTw8=, tarball: he/download/he-1.2.0.tgz}
     hasBin: true
+    dev: true
+
+  abcssh.pwwhb.com+39802/tunframework/tun/f64fbf934628b9e3f2d3e6786afd5d22dc6f7361:
+    resolution: {commit: f64fbf934628b9e3f2d3e6786afd5d22dc6f7361, repo: ssh://git@abcssh.pwwhb.com:39802/tunframework/tun.git, type: git}
+    name: tun
+    version: 1.1.1
+    engines: {node: '>=12.2.0'}
     dev: true
 
   registry.nlark.com/@ungap/promise-all-settled/1.1.2:
