@@ -58,10 +58,10 @@
     "*": [
       "prettier --write --ignore-unknown"
     ],
-    "lib/**/*.ts": [
+    "{lib,tests}/**/*.ts": [
       "eslint --ext .ts"
     ],
-    "lib/**/*.d.ts": [
+    "{lib,tests}/**/*.d.ts": [
       "eslint --ext .ts"
     ]
   },
