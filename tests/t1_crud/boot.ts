@@ -1,12 +1,13 @@
-import { Server } from 'http'
-import { AddressInfo, ListenOptions } from 'net'
+import type { Server } from 'http'
+import type { AddressInfo, ListenOptions } from 'net'
 import { TunApplication } from 'tun'
 
 import { RestifyRouter } from '../../lib/index.js'
+import { allowedMethods } from '../../lib/route-utils.js'
 
-export function prepareApp(
-  option: ListenOptions = { host: 'localhost', port: 0 }
-) {
+import { bodyparser } from 'tun-bodyparser'
+
+export function prepareApp() {
   const app = new TunApplication()
   const router = new RestifyRouter()
 
@@ -14,21 +15,21 @@ export function prepareApp(
     app,
     router,
     boot: (
-      cb: (server: Server) => void,
+      cb: (server: Server, url: string) => Promise<void>,
       option: ListenOptions = { host: '127.0.0.1', port: 0 }
     ) => {
+      app.use(bodyparser())
       app.use(router.routes())
+      app.use(allowedMethods())
       const server = app.listen(option)
-      server.on('listening', () => {
+      server.on('listening', async () => {
         let addr = (server.address() || {}) as AddressInfo
-        const url = [addr.address, addr.port].filter(Boolean).join(':')
-        console.log(`temp test app url: ${url}`)
+        const url =
+          'http://' + [addr.address, addr.port].filter(Boolean).join(':')
+        // console.log(`temp test app url: ${url}`)
         // assert.ok(url, `server url should not be empty`);
         try {
-          cb(server)
-        } catch (error) {
-          console.error(error)
-          // assert.fail(error.message);
+          await cb(server, url)
         } finally {
           closeServer(server)
         }

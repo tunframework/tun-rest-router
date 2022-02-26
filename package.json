@@ -8,11 +8,12 @@
     "build": "rm -rf ./dist/ && tsc --build",
     "test": "ts-mocha -n loader=ts-node/esm -p tsconfig.json tests/**/*.test.ts",
     "test:watch": "ts-mocha -n loader=ts-node/esm -p tsconfig.json tests/**/*.test.ts -w --watch-extensions ts",
-    "release": "standard-version",
-    "release:minor": "standard-version --release-as minor",
-    "release:patch": "standard-version --release-as patch",
-    "release:major": "standard-version --release-as major",
-    "push-release": "git push && git push --tags"
+    "release": "npm run dist && standard-version",
+    "release:minor": "npm run dist && standard-version --release-as minor",
+    "release:patch": "npm run dist && standard-version --release-as patch",
+    "release:major": "npm run dist && standard-version --release-as major",
+    "push-release": "git push && git push --tags",
+    "dist": "npm run build && git add dist && ((git diff --cached dist | grep \"diff --git a/dist/\" && git commit -m \"chore: dist\") || echo \"no changes in dist\")"
   },
   "keywords": [],
   "author": "",
@@ -29,12 +30,14 @@
     "eslint-plugin-node": "^11.1.0",
     "lint-staged": "^12.3.4",
     "mocha": "^9.2.1",
+    "node-fetch": "^3.2.0",
     "prettier": "^2.5.1",
     "simple-git-hooks": "^2.7.0",
     "standard-version": "^9.3.2",
     "ts-mocha": "^9.0.2",
     "ts-node": "^10.5.0",
-    "tun": "ssh://git@abcssh.pwwhb.com:39802/tunframework/tun.git#v1.1.1",
+    "tun": "ssh://git@abcssh.pwwhb.com:39802/tunframework/tun.git#v1.2.1",
+    "tun-bodyparser": "ssh://git@abcssh.pwwhb.com:39802/tunframework/tun-bodyparser.git#v1.2.2",
     "typescript": "^4.5.5"
   },
   "files": [

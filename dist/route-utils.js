@@ -1,12 +1,12 @@
-import { HttpMethod } from "tun";
-import { HttpError } from "tun";
+import { HttpMethod } from 'tun';
+import { HttpError } from 'tun';
 /**
  * 分析Controller的方法以生成相应路由
  */
 export function parseControllers2Routes(controllers) {
     const _routes = [];
     for (const controller of controllers) {
-        const pathAndMethodList = Object.getOwnPropertyNames(controller).filter(item => typeof controller[item] === 'function');
+        const pathAndMethodList = Object.getOwnPropertyNames(controller).filter((item) => typeof controller[item] === 'function');
         for (const pathAndMethod of pathAndMethodList) {
             let [method, pathname] = pathAndMethod.split(' ');
             if (!pathname) {
@@ -17,10 +17,9 @@ export function parseControllers2Routes(controllers) {
             if (!pathname) {
                 throw new Error(`"${pathAndMethod}" pathname required!`);
             }
-            ;
             method = method.toUpperCase();
             let methods = method.split('|');
-            let methodUnsupported = methods.find(o => !HttpMethod[o]);
+            let methodUnsupported = methods.find((o) => !HttpMethod[o]);
             if (methodUnsupported) {
                 throw new Error(`unsupported method "${methodUnsupported}"`);
             }
@@ -33,7 +32,7 @@ export function parseControllers2Routes(controllers) {
                 ...pathToRegexp(pathname),
                 methods,
                 slugValues: [],
-                handler,
+                handler
             });
         }
     }
@@ -68,7 +67,7 @@ export function pathToRegexp(pathname) {
         slugNames: [],
         slugValues: [],
         slugPositions: [],
-        handler: (ctx, next) => next(),
+        handler: (ctx, next) => next()
     };
     if (!pathname.startsWith('/')) {
         throw new Error(`Expect path "${pathname}" startsWith "/"`);
@@ -78,54 +77,63 @@ export function pathToRegexp(pathname) {
         regexp = '^/$';
     }
     else {
-        regexp = '^/' + pathname.substring(1).split('/').map((item, itemIndex) => {
-            if (item.startsWith(':')) {
-                // "/custom/:id([0-9a-zA-Z]{36})"
-                let name = item.substring(1);
-                let lParInd = name.indexOf('(');
-                if (lParInd > -1 && name.endsWith(')')) {
-                    let customRegexp = name.substring(lParInd + 1, name.length - 1);
-                    name = name.substring(0, lParInd);
-                    assertLegalPathPartName(name);
-                    route.slugNames.push(name);
-                    route.slugPositions.push(itemIndex);
-                    return `(${customRegexp})`;
-                }
-                else {
-                    assertLegalPathPartName(name);
-                    route.slugNames.push(name);
-                    route.slugPositions.push(itemIndex);
-                    return '(.+)';
-                }
-            }
-            else if (item.startsWith('{') && item.endsWith('}')) {
-                // "/custom/{id:[0-9a-zA-Z]{36}}"
-                let kv = item.substring(1, item.length - 1);
-                let [name, customRegexp] = kv.split(':', 2);
-                customRegexp = customRegexp || '.+';
-                assertLegalPathPartName(name);
-                route.slugNames.push(name);
-                route.slugPositions.push(itemIndex);
-                return `(${customRegexp})`;
-            }
-            else {
-                // try match glob like "/custom/**/*.js"
-                // let name = item.replace(/([.^$])/g, '\\$1').replace(/\*\*/g, '.*[^/]+').replace(/\*/g, '[^/]+')
-                let name = item.replace(/([.^$])/g, '\\$1').replace(/(\*+)/, ($, $1) => {
-                    if ($1.length === 2) {
-                        return '.*[^/]+';
+        regexp =
+            '^/' +
+                pathname
+                    .substring(1)
+                    .split('/')
+                    .map((item, itemIndex) => {
+                    if (item.startsWith(':')) {
+                        // "/custom/:id([0-9a-zA-Z]{36})"
+                        let name = item.substring(1);
+                        let lParInd = name.indexOf('(');
+                        if (lParInd > -1 && name.endsWith(')')) {
+                            let customRegexp = name.substring(lParInd + 1, name.length - 1);
+                            name = name.substring(0, lParInd);
+                            assertLegalPathPartName(name);
+                            route.slugNames.push(name);
+                            route.slugPositions.push(itemIndex);
+                            return `(${customRegexp})`;
+                        }
+                        else {
+                            assertLegalPathPartName(name);
+                            route.slugNames.push(name);
+                            route.slugPositions.push(itemIndex);
+                            return '(.+)';
+                        }
                     }
-                    else if ($1.length === 1) {
-                        return '[^/]+';
+                    else if (item.startsWith('{') && item.endsWith('}')) {
+                        // "/custom/{id:[0-9a-zA-Z]{36}}"
+                        let kv = item.substring(1, item.length - 1);
+                        let [name, customRegexp] = kv.split(':', 2);
+                        customRegexp = customRegexp || '.+';
+                        assertLegalPathPartName(name);
+                        route.slugNames.push(name);
+                        route.slugPositions.push(itemIndex);
+                        return `(${customRegexp})`;
                     }
                     else {
-                        throw new Error(`Expect "*" or "**" found ${$1}`);
+                        // try match glob like "/custom/**/*.js"
+                        // let name = item.replace(/([.^$])/g, '\\$1').replace(/\*\*/g, '.*[^/]+').replace(/\*/g, '[^/]+')
+                        let name = item
+                            .replace(/([.^$])/g, '\\$1')
+                            .replace(/(\*+)/, ($, $1) => {
+                            if ($1.length === 2) {
+                                return '.*[^/]+';
+                            }
+                            else if ($1.length === 1) {
+                                return '[^/]+';
+                            }
+                            else {
+                                throw new Error(`Expect "*" or "**" found ${$1}`);
+                            }
+                        });
+                        // assertLegalPathPartName(name);
+                        return name;
                     }
-                });
-                // assertLegalPathPartName(name);
-                return name;
-            }
-        }).join('/') + '([?].*)?([#].*)?$';
+                })
+                    .join('/') +
+                '([?].*)?([#].*)?$';
     }
     route.re = new RegExp(regexp);
     return route;
@@ -140,12 +148,15 @@ export function pathToRegexp(pathname) {
  */
 export function matchRoute(method, pathname, routes) {
     // 优先判断有无全匹配的路由
-    const fullMatched = routes.find((/**@type {Route} */ item) => item.methods.some(m => m === method) && item.pathname === pathname && item.slugNames.length === 0);
+    const fullMatched = routes.find((/**@type {Route} */ item) => item.methods.some((m) => m === method) &&
+        item.pathname === pathname &&
+        item.slugNames.length === 0);
     if (fullMatched)
         return fullMatched;
     let slugValuesMap = {};
-    return routes.filter((/**@type {Route} */ item) => {
-        if (item.methods.every(m => m !== method)) {
+    return routes
+        .filter((/**@type {Route} */ item) => {
+        if (item.methods.every((m) => m !== method)) {
             return false;
         }
         let matched = item.re.exec(pathname);
@@ -153,12 +164,13 @@ export function matchRoute(method, pathname, routes) {
             slugValuesMap[item.pathname] = matched.slice(1, matched.length - 2);
             return true;
         }
-    }).reduce((pre, next) => {
+    })
+        .reduce((pre, next) => {
         // compare len
         if (!pre || pre.pathname.length <= next.pathname.length) {
             return {
                 ...next,
-                slugValues: slugValuesMap[next.pathname],
+                slugValues: slugValuesMap[next.pathname]
             };
         }
         return pre;
@@ -183,11 +195,12 @@ export function allowedMethods(options = {}) {
         }
         // 响应状态没有设置，或为404
         const allowed = {};
-        (ctx.req.matchedRoutes || []).forEach(route => {
-            route.methods.forEach(method => {
+        const matchedRoute = ctx.state.matchedRoute;
+        if (matchedRoute) {
+            matchedRoute.methods.forEach((method) => {
                 allowed[method] = method;
             });
-        });
+        }
         const allowedArr = Object.keys(allowed);
         if (implemented.indexOf(ctx.req.method) > -1) {
             if (options.throw) {

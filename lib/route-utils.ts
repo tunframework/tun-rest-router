@@ -12,14 +12,6 @@ export interface Route {
   handler: TunComposable<TunContext>
 }
 
-// extend TunContext
-declare module 'tun' {
-  interface TunRequest {
-    matchedRoutes?: Route[]
-    slugs: Record<string, string>
-  }
-}
-
 /**
  * 分析Controller的方法以生成相应路由
  */
@@ -254,11 +246,12 @@ export function allowedMethods(
     // 响应状态没有设置，或为404
 
     const allowed: Record<string, string> = {}
-    ;(ctx.req.matchedRoutes || []).forEach((route) => {
-      route.methods.forEach((method) => {
+    const matchedRoute: Route = ctx.state.matchedRoute
+    if (matchedRoute) {
+      matchedRoute.methods.forEach((method) => {
         allowed[method] = method
       })
-    })
+    }
 
     const allowedArr = Object.keys(allowed)
 

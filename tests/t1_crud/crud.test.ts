@@ -4,6 +4,8 @@ import { RestifyRouter } from '../../lib/index.js'
 
 import { prepareApp } from './boot.js'
 
+import fetch from 'node-fetch'
+
 describe(`t1_crud`, async () => {
   it(`#new`, () => {
     const prefix = `/${Date.now()}`
@@ -13,8 +15,8 @@ describe(`t1_crud`, async () => {
   it(`#get`, async () => {
     const router = new RestifyRouter()
     const ts = Date.now()
-    const path = `/test`
-    router.get(path, async (ctx, next) => {
+    const pathname = `/test`
+    router.get(pathname, async (ctx, next) => {
       return ts
     })
 
@@ -22,7 +24,7 @@ describe(`t1_crud`, async () => {
       {
         // @ts-ignore
         req: {
-          path,
+          path: pathname,
           method: 'GET'
         },
         // @ts-ignore
@@ -35,8 +37,50 @@ describe(`t1_crud`, async () => {
 
   it(`#post`, (done) => {
     const { router, boot } = prepareApp()
-    boot((server) => {
-      done()
+    const ts = Date.now()
+    const pathname = `/ts/:ts`
+    const pathname4Request = `/ts/${ts}`
+    const data = {
+      ts,
+      noise: Math.random()
+    }
+    router.post(pathname, async (ctx, next) => {
+      // return ctx.req.body;
+
+      // ctx.res.body = {
+      //   slug: ctx.req.slugs.ts,
+      //   data: ctx.req.body,
+      // };
+      // await next();
+
+      return {
+        slug: ctx.req.slugs.ts,
+        data: ctx.req.body
+      }
+    })
+
+    boot(async (server, url) => {
+      const res = await fetch(`${url}${pathname4Request}`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const result: any = await res.json()
+
+      try {
+        assert.ok(result, `should return result`)
+        assert.strictEqual(
+          result.slug,
+          String(ts),
+          `should return expected slug value`
+        )
+        assert.deepEqual(result.data, data, `should return expected data`)
+        done()
+      } catch (error) {
+        done(error)
+      }
     })
   })
 })

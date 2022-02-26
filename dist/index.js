@@ -1,27 +1,27 @@
 // @ts-check
-import { matchRoute, pathToRegexp } from "./route-utils.js";
+import { matchRoute, pathToRegexp } from './route-utils.js';
 /**
+ * @example
+ * ```js
  * // router/index.js
- * export const restifyRouter = new RestifyRouter().get(() => `Hi, world!`).post(() => ``).put('product/{id}').delete('project/:id')
+ * export const productRouter = new RestifyRouter('product')
+ *   .get('/', (ctx, next) => `Hi, world!`)
+ *   .post('/', (ctx, next) => JSON.stringify(ctx.req.body))
+ *   .put('/{id}', (ctx, next) => `${ctx.req.slugs.id}`)
+ *   .delete('/:id', (ctx, next) => `${ctx.req.slugs.id}`)
+ * ```
  */
 export class RestifyRouter {
+    _routes = [];
+    // temp prefix, consumed in addRoute()
+    _prefix = '';
     constructor({ prefix = '' } = {}) {
-        this._routes = [];
-        // temp prefix, consumed in addRoute()
-        this._prefix = '';
         this.prefix(prefix);
     }
-    /**
-     *
-     * @param {string} _prefix
-     */
     prefix(_prefix) {
         this._prefix = _prefix || '';
         return this;
     }
-    /**
-     * @returns {TunComposable<TunContext>}
-     */
     routes() {
         // return this._routes;
         return (ctx, next) => {
@@ -29,6 +29,7 @@ export class RestifyRouter {
             if (!route) {
                 return next();
             }
+            ctx.state.matchedRoute = route;
             if (ctx.res.status === 404) {
                 ctx.res.status = 200;
             }
@@ -46,7 +47,7 @@ export class RestifyRouter {
             ...pathToRegexp((this._prefix || '') + pathname),
             methods: Array.isArray(methods) ? methods : [methods],
             slugValues: [],
-            handler,
+            handler
         });
         return this;
     }
@@ -80,7 +81,9 @@ export class RestifyRouter {
 }
 export let loadRestifyRoutes = async (pathname) => {
     let M = await import(pathname);
-    let list = Object.keys(M).filter(k => M[k] instanceof RestifyRouter).map(k => M[k]);
+    let list = Object.keys(M)
+        .filter((k) => M[k] instanceof RestifyRouter)
+        .map((k) => M[k]);
     if (list.length === 1) {
         return list[0];
     }

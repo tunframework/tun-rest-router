@@ -1,5 +1,5 @@
-import { HttpMethod } from "tun";
-import { TunComposable, TunContext } from "tun";
+import { HttpMethod } from 'tun';
+import { TunComposable, TunContext } from 'tun';
 export interface Route {
     methods: Array<keyof typeof HttpMethod>;
     pathname: string;
@@ -8,12 +8,6 @@ export interface Route {
     slugValues: string[];
     slugPositions: number[];
     handler: TunComposable<TunContext>;
-}
-declare module "tun" {
-    interface TunRequest {
-        matchedRoutes?: Route[];
-        slugs: Record<string, string>;
-    }
 }
 /**
  * 分析Controller的方法以生成相应路由

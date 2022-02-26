@@ -38,6 +38,7 @@ export class RestifyRouter {
       if (!route) {
         return next()
       }
+      ctx.state.matchedRoute = route
       if (ctx.res.status === 404) {
         ctx.res.status = 200
       }

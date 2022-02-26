@@ -13,12 +13,14 @@ specifiers:
   eslint-plugin-node: ^11.1.0
   lint-staged: ^12.3.4
   mocha: ^9.2.1
+  node-fetch: ^3.2.0
   prettier: ^2.5.1
   simple-git-hooks: ^2.7.0
   standard-version: ^9.3.2
   ts-mocha: ^9.0.2
   ts-node: ^10.5.0
-  tun: ssh://git@abcssh.pwwhb.com:39802/tunframework/tun.git#v1.1.1
+  tun: ssh://git@abcssh.pwwhb.com:39802/tunframework/tun.git#v1.2.1
+  tun-bodyparser: ssh://git@abcssh.pwwhb.com:39802/tunframework/tun-bodyparser.git#v1.2.2
   typescript: ^4.5.5
 
 dependencies:
@@ -36,12 +38,14 @@ devDependencies:
   eslint-plugin-node: registry.npmmirror.com/eslint-plugin-node/11.1.0_eslint@8.9.0
   lint-staged: registry.npmmirror.com/lint-staged/12.3.4
   mocha: registry.npmmirror.com/mocha/9.2.1
+  node-fetch: registry.npmmirror.com/node-fetch/3.2.0
   prettier: registry.npmmirror.com/prettier/2.5.1
   simple-git-hooks: registry.npmmirror.com/simple-git-hooks/2.7.0
   standard-version: registry.npmmirror.com/standard-version/9.3.2
   ts-mocha: registry.npmmirror.com/ts-mocha/9.0.2_mocha@9.2.1
   ts-node: registry.npmmirror.com/ts-node/10.5.0_003c8a6da24af261bf8b8ce51aec1adf
-  tun: abcssh.pwwhb.com+39802/tunframework/tun/f64fbf934628b9e3f2d3e6786afd5d22dc6f7361
+  tun: abcssh.pwwhb.com+39802/tunframework/tun/4e329f10c160dcabd71d93e269eeb32810d63b82
+  tun-bodyparser: abcssh.pwwhb.com+39802/tunframework/tun-bodyparser/fc43d2bd58bd90346677b9ab41e857e4c7dfe903
   typescript: registry.npmmirror.com/typescript/4.5.5
 
 packages:
@@ -51,10 +55,25 @@ packages:
     hasBin: true
     dev: true
 
-  abcssh.pwwhb.com+39802/tunframework/tun/f64fbf934628b9e3f2d3e6786afd5d22dc6f7361:
-    resolution: {commit: f64fbf934628b9e3f2d3e6786afd5d22dc6f7361, repo: ssh://git@abcssh.pwwhb.com:39802/tunframework/tun.git, type: git}
+  /qs/6.9.3:
+    resolution: {integrity: sha1-v63NKWwtVJ8d/6VgYZEyyXf1AI4=, tarball: qs/download/qs-6.9.3.tgz}
+    engines: {node: '>=0.6'}
+    dev: true
+
+  abcssh.pwwhb.com+39802/tunframework/tun-bodyparser/fc43d2bd58bd90346677b9ab41e857e4c7dfe903:
+    resolution: {commit: fc43d2bd58bd90346677b9ab41e857e4c7dfe903, repo: ssh://git@abcssh.pwwhb.com:39802/tunframework/tun-bodyparser.git, type: git}
+    name: tun-bodyparser
+    version: 1.2.2
+    engines: {node: '>=12.2.0'}
+    dependencies:
+      '@types/formidable': registry.npmmirror.com/@types/formidable/2.0.4
+      formidable: registry.npmmirror.com/formidable/2.0.1
+    dev: true
+
+  abcssh.pwwhb.com+39802/tunframework/tun/4e329f10c160dcabd71d93e269eeb32810d63b82:
+    resolution: {commit: 4e329f10c160dcabd71d93e269eeb32810d63b82, repo: ssh://git@abcssh.pwwhb.com:39802/tunframework/tun.git, type: git}
     name: tun
-    version: 1.1.1
+    version: 1.2.1
     engines: {node: '>=12.2.0'}
     dev: true
 
@@ -443,6 +462,14 @@ packages:
     name: '@tsconfig/node16'
     version: 1.0.2
 
+  registry.npmmirror.com/@types/formidable/2.0.4:
+    resolution: {integrity: sha512-6HYcnmBCeby/nNGgX9kq1DxUpK2UcB3yoHCr3GzFjjqkpivOdcBSbsXP9NbxLcPEi11Fl/L41rbFCIsteF9sbg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/formidable/-/formidable-2.0.4.tgz}
+    name: '@types/formidable'
+    version: 2.0.4
+    dependencies:
+      '@types/node': registry.npmmirror.com/@types/node/17.0.19
+    dev: true
+
   registry.npmmirror.com/@types/json-schema/7.0.9:
     resolution: {integrity: sha512-qcUXuemtEu+E5wZSJHNxUXeCZhAfXKQ41D+duX+VYPde7xyEVZci+/oXKJL13tnRs9lR2pr4fod59GT6/X1/yQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/json-schema/-/json-schema-7.0.9.tgz}
     name: '@types/json-schema'
@@ -795,6 +822,12 @@ packages:
     name: arrify
     version: 1.0.1
     engines: {node: '>=0.10.0'}
+
+  registry.npmmirror.com/asap/2.0.6:
+    resolution: {integrity: sha512-BSHWgDSAiKs50o2Re8ppvp3seVHXSRM44cdSsT9FfNEUUZLOGWVCsiWaRPWM1Znn+mqZ1OfVZ3z3DWEzSp7hRA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/asap/-/asap-2.0.6.tgz}
+    name: asap
+    version: 2.0.6
+    dev: true
 
   registry.npmmirror.com/astral-regex/2.0.0:
     resolution: {integrity: sha512-Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/astral-regex/-/astral-regex-2.0.0.tgz}
@@ -1283,6 +1316,13 @@ packages:
     version: 7.0.0
     engines: {node: '>=8'}
 
+  registry.npmmirror.com/data-uri-to-buffer/4.0.0:
+    resolution: {integrity: sha512-Vr3mLBA8qWmcuschSLAOogKgQ/Jwxulv3RNE4FXnYWRGujzrRWQI4m12fQqRkwX06C0KanhLr4hK+GydchZsaA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/data-uri-to-buffer/-/data-uri-to-buffer-4.0.0.tgz}
+    name: data-uri-to-buffer
+    version: 4.0.0
+    engines: {node: '>= 12'}
+    dev: true
+
   registry.npmmirror.com/dateformat/3.0.3:
     resolution: {integrity: sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dateformat/-/dateformat-3.0.3.tgz}
     name: dateformat
@@ -1400,6 +1440,15 @@ packages:
     name: detect-newline
     version: 3.1.0
     engines: {node: '>=8'}
+    dev: true
+
+  registry.npmmirror.com/dezalgo/1.0.3:
+    resolution: {integrity: sha512-K7i4zNfT2kgQz3GylDw40ot9GAE47sFZ9EXHFSPP6zONLgH6kWXE0KWJchkbQJLBkRazq4APwZ4OwiFFlT95OQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dezalgo/-/dezalgo-1.0.3.tgz}
+    name: dezalgo
+    version: 1.0.3
+    dependencies:
+      asap: registry.npmmirror.com/asap/2.0.6
+      wrappy: registry.npmmirror.com/wrappy/1.0.2
     dev: true
 
   registry.npmmirror.com/diff/3.5.0:
@@ -1844,6 +1893,16 @@ packages:
       reusify: registry.npmmirror.com/reusify/1.0.4
     dev: true
 
+  registry.npmmirror.com/fetch-blob/3.1.4:
+    resolution: {integrity: sha512-Eq5Xv5+VlSrYWEqKrusxY1C3Hm/hjeAsCGVG3ft7pZahlUAChpGZT/Ms1WmSLnEAisEXszjzu/s+ce6HZB2VHA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/fetch-blob/-/fetch-blob-3.1.4.tgz}
+    name: fetch-blob
+    version: 3.1.4
+    engines: {node: ^12.20 || >= 14.13}
+    dependencies:
+      node-domexception: registry.npmmirror.com/node-domexception/1.0.0
+      web-streams-polyfill: registry.npmmirror.com/web-streams-polyfill/3.2.0
+    dev: true
+
   registry.npmmirror.com/figures/3.2.0:
     resolution: {integrity: sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/figures/-/figures-3.2.0.tgz}
     name: figures
@@ -1928,6 +1987,26 @@ packages:
     resolution: {integrity: sha512-WIWGi2L3DyTUvUrwRKgGi9TwxQMUEqPOPQBVi71R96jZXJdFskXEmf54BoZaS1kknGODoIGASGEzBUYdyMCBJg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/flatted/-/flatted-3.2.5.tgz}
     name: flatted
     version: 3.2.5
+    dev: true
+
+  registry.npmmirror.com/formdata-polyfill/4.0.10:
+    resolution: {integrity: sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/formdata-polyfill/-/formdata-polyfill-4.0.10.tgz}
+    name: formdata-polyfill
+    version: 4.0.10
+    engines: {node: '>=12.20.0'}
+    dependencies:
+      fetch-blob: registry.npmmirror.com/fetch-blob/3.1.4
+    dev: true
+
+  registry.npmmirror.com/formidable/2.0.1:
+    resolution: {integrity: sha512-rjTMNbp2BpfQShhFbR3Ruk3qk2y9jKpvMW78nJgx8QKtxjDVrwbZG+wvDOmVbifHyOUOQJXxqEy6r0faRrPzTQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/formidable/-/formidable-2.0.1.tgz}
+    name: formidable
+    version: 2.0.1
+    dependencies:
+      dezalgo: registry.npmmirror.com/dezalgo/1.0.3
+      hexoid: registry.npmmirror.com/hexoid/1.0.0
+      once: registry.npmmirror.com/once/1.4.0
+      qs: 6.9.3
     dev: true
 
   registry.npmmirror.com/fs-access/1.0.1:
@@ -2194,6 +2273,13 @@ packages:
     engines: {node: '>= 0.4.0'}
     dependencies:
       function-bind: registry.npmmirror.com/function-bind/1.1.1
+
+  registry.npmmirror.com/hexoid/1.0.0:
+    resolution: {integrity: sha512-QFLV0taWQOZtvIRIAdBChesmogZrtuXvVWsFHZTk2SU+anspqZ2vMnoLg7IE1+Uk16N19APic1BuF8bC8c2m5g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/hexoid/-/hexoid-1.0.0.tgz}
+    name: hexoid
+    version: 1.0.0
+    engines: {node: '>=8'}
+    dev: true
 
   registry.npmmirror.com/hosted-git-info/2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz}
@@ -2891,6 +2977,24 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/neo-async/-/neo-async-2.6.2.tgz}
     name: neo-async
     version: 2.6.2
+    dev: true
+
+  registry.npmmirror.com/node-domexception/1.0.0:
+    resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/node-domexception/-/node-domexception-1.0.0.tgz}
+    name: node-domexception
+    version: 1.0.0
+    engines: {node: '>=10.5.0'}
+    dev: true
+
+  registry.npmmirror.com/node-fetch/3.2.0:
+    resolution: {integrity: sha512-8xeimMwMItMw8hRrOl3C9/xzU49HV/yE6ORew/l+dxWimO5A4Ra8ld2rerlJvc/O7et5Z1zrWsPX43v1QBjCxw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/node-fetch/-/node-fetch-3.2.0.tgz}
+    name: node-fetch
+    version: 3.2.0
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      data-uri-to-buffer: registry.npmmirror.com/data-uri-to-buffer/4.0.0
+      fetch-blob: registry.npmmirror.com/fetch-blob/3.1.4
+      formdata-polyfill: registry.npmmirror.com/formdata-polyfill/4.0.10
     dev: true
 
   registry.npmmirror.com/normalize-package-data/2.5.0:
@@ -4011,6 +4115,13 @@ packages:
     dependencies:
       spdx-correct: registry.npmmirror.com/spdx-correct/3.1.1
       spdx-expression-parse: registry.npmmirror.com/spdx-expression-parse/3.0.1
+
+  registry.npmmirror.com/web-streams-polyfill/3.2.0:
+    resolution: {integrity: sha512-EqPmREeOzttaLRm5HS7io98goBgZ7IVz79aDvqjD0kYXLtFZTc0T/U6wHTPKyIjb+MdN7DFIIX6hgdBEpWmfPA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/web-streams-polyfill/-/web-streams-polyfill-3.2.0.tgz}
+    name: web-streams-polyfill
+    version: 3.2.0
+    engines: {node: '>= 8'}
+    dev: true
 
   registry.npmmirror.com/which-boxed-primitive/1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/which-boxed-primitive/-/which-boxed-primitive-1.0.2.tgz}
