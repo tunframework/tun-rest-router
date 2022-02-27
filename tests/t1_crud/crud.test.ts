@@ -1,6 +1,6 @@
 import assert from 'assert'
 
-import { RestifyRouter } from '../../lib/index.js'
+import { RestifyRouter } from '../../src/index.js'
 
 import { prepareApp } from './boot.js'
 
@@ -28,7 +28,8 @@ describe(`t1_crud`, async () => {
           method: 'GET'
         },
         // @ts-ignore
-        res: {}
+        res: {},
+        state: {}
       },
       null
     )

@@ -1,7 +1,7 @@
 // @ts-check
 
-import { HttpMethod } from 'tun'
-import type { TunComposable, TunContext } from 'tun'
+import { HttpMethod } from '@tunframework/tun'
+import type { TunComposable, TunContext } from '@tunframework/tun'
 import { matchRoute, pathToRegexp } from './route-utils.js'
 import type { Route } from './route-utils.js'
 

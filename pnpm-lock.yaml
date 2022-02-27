@@ -3,6 +3,8 @@ lockfileVersion: 5.3
 specifiers:
   '@commitlint/cli': ^16.2.1
   '@commitlint/config-conventional': ^16.2.1
+  '@tunframework/tun': ^2.0.2
+  '@tunframework/tun-bodyparser': ^2.0.3
   '@types/mocha': ^9.1.0
   '@types/node': ^17.0.19
   '@typescript-eslint/eslint-plugin': ^5.12.1
@@ -19,8 +21,6 @@ specifiers:
   standard-version: ^9.3.2
   ts-mocha: ^9.0.2
   ts-node: ^10.5.0
-  tun: ssh://git@abcssh.pwwhb.com:39802/tunframework/tun.git#v1.2.1
-  tun-bodyparser: ssh://git@abcssh.pwwhb.com:39802/tunframework/tun-bodyparser.git#v1.2.2
   typescript: ^4.5.5
 
 dependencies:
@@ -28,6 +28,8 @@ dependencies:
   '@commitlint/config-conventional': registry.npmmirror.com/@commitlint/config-conventional/16.2.1
 
 devDependencies:
+  '@tunframework/tun': registry.npmjs.org/@tunframework/tun/2.0.2
+  '@tunframework/tun-bodyparser': registry.npmjs.org/@tunframework/tun-bodyparser/2.0.3
   '@types/mocha': registry.npmmirror.com/@types/mocha/9.1.0
   '@types/node': registry.npmmirror.com/@types/node/17.0.19
   '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.12.1_aa3af6382115a42a71cc388b7b2c30b3
@@ -44,8 +46,6 @@ devDependencies:
   standard-version: registry.npmmirror.com/standard-version/9.3.2
   ts-mocha: registry.npmmirror.com/ts-mocha/9.0.2_mocha@9.2.1
   ts-node: registry.npmmirror.com/ts-node/10.5.0_003c8a6da24af261bf8b8ce51aec1adf
-  tun: abcssh.pwwhb.com+39802/tunframework/tun/4e329f10c160dcabd71d93e269eeb32810d63b82
-  tun-bodyparser: abcssh.pwwhb.com+39802/tunframework/tun-bodyparser/fc43d2bd58bd90346677b9ab41e857e4c7dfe903
   typescript: registry.npmmirror.com/typescript/4.5.5
 
 packages:
@@ -58,23 +58,6 @@ packages:
   /qs/6.9.3:
     resolution: {integrity: sha1-v63NKWwtVJ8d/6VgYZEyyXf1AI4=, tarball: qs/download/qs-6.9.3.tgz}
     engines: {node: '>=0.6'}
-    dev: true
-
-  abcssh.pwwhb.com+39802/tunframework/tun-bodyparser/fc43d2bd58bd90346677b9ab41e857e4c7dfe903:
-    resolution: {commit: fc43d2bd58bd90346677b9ab41e857e4c7dfe903, repo: ssh://git@abcssh.pwwhb.com:39802/tunframework/tun-bodyparser.git, type: git}
-    name: tun-bodyparser
-    version: 1.2.2
-    engines: {node: '>=12.2.0'}
-    dependencies:
-      '@types/formidable': registry.npmmirror.com/@types/formidable/2.0.4
-      formidable: registry.npmmirror.com/formidable/2.0.1
-    dev: true
-
-  abcssh.pwwhb.com+39802/tunframework/tun/4e329f10c160dcabd71d93e269eeb32810d63b82:
-    resolution: {commit: 4e329f10c160dcabd71d93e269eeb32810d63b82, repo: ssh://git@abcssh.pwwhb.com:39802/tunframework/tun.git, type: git}
-    name: tun
-    version: 1.2.1
-    engines: {node: '>=12.2.0'}
     dev: true
 
   registry.nlark.com/@ungap/promise-all-settled/1.1.2:
@@ -137,6 +120,23 @@ packages:
       decamelize: registry.npmmirror.com/decamelize/4.0.0
       flat: registry.npmmirror.com/flat/5.0.2
       is-plain-obj: registry.npmmirror.com/is-plain-obj/2.1.0
+    dev: true
+
+  registry.npmjs.org/@tunframework/tun-bodyparser/2.0.3:
+    resolution: {integrity: sha512-h5jWGNBLQ2PAdLOLf62wst1/5rhkFFrzN9aX2ny4x/gk2aCdFgsb1WG9cxrAyJbUHyErrTg1eGF5NlrbQZlAqw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@tunframework/tun-bodyparser/-/tun-bodyparser-2.0.3.tgz}
+    name: '@tunframework/tun-bodyparser'
+    version: 2.0.3
+    engines: {node: '>=12.2.0'}
+    dependencies:
+      '@types/formidable': registry.npmmirror.com/@types/formidable/2.0.4
+      formidable: registry.npmmirror.com/formidable/2.0.1
+    dev: true
+
+  registry.npmjs.org/@tunframework/tun/2.0.2:
+    resolution: {integrity: sha512-1LSY4KaMAoasYzz0T0EVwuGoalvExnARtjCkusCrbvkrL0CeHj8kn828b0ozc/pco8INtUA4bmeJYBcf6g7LXw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@tunframework/tun/-/tun-2.0.2.tgz}
+    name: '@tunframework/tun'
+    version: 2.0.2
+    engines: {node: '>=12.2.0'}
     dev: true
 
   registry.npmmirror.com/@babel/code-frame/7.16.7:

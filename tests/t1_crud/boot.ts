@@ -1,11 +1,11 @@
 import type { Server } from 'http'
 import type { AddressInfo, ListenOptions } from 'net'
-import { TunApplication } from 'tun'
+import { TunApplication } from '@tunframework/tun'
 
-import { RestifyRouter } from '../../lib/index.js'
-import { allowedMethods } from '../../lib/route-utils.js'
+import { RestifyRouter } from '../../src/index.js'
+import { allowedMethods } from '../../src/route-utils.js'
 
-import { bodyparser } from 'tun-bodyparser'
+import { bodyparser } from '@tunframework/tun-bodyparser'
 
 export function prepareApp() {
   const app = new TunApplication()

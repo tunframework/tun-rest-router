@@ -17,9 +17,10 @@
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
     "target": "ESNext",
     "module": "ESNext",
-    "rootDir": "./lib",
-    "declaration": true,
-    "outDir": "./dist",
+    "rootDir": "src",
+    // emit to lib/types via option: tsc ... --outDir lib/types --declaration
+    // "declaration": true,
+    "outDir": "lib/esm",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -27,5 +28,5 @@
     "skipLibCheck": true,
     "moduleResolution": "node"
   },
-  "exclude": ["tests", "dist"]
+  "exclude": ["tests", "lib"]
 }

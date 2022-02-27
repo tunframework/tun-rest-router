@@ -1,6 +1,6 @@
-import { HttpMethod } from 'tun'
-import { HttpError } from 'tun'
-import { TunComposable, TunContext } from 'tun'
+import { HttpMethod } from '@tunframework/tun'
+import { HttpError } from '@tunframework/tun'
+import { TunComposable, TunContext } from '@tunframework/tun'
 
 export interface Route {
   methods: Array<keyof typeof HttpMethod>
@@ -222,7 +222,7 @@ export function matchRoute(method: string, pathname: string, routes: Route[]) {
  *
  * @param {{ methods?: string[], throw?: boolean, notImplemented?: () => Error }=} options
  *
- * @returns {TunComposable<TunContext>}
+ * @returns {}
  */
 export function allowedMethods(
   options: {
@@ -230,15 +230,10 @@ export function allowedMethods(
     throw?: boolean
     notImplemented?: () => Error
   } = {}
-) {
-  // /**@type {Array<keyof httpMethodMap>} */
-  /**@type {string[]} */
+): TunComposable<TunContext> {
   const implemented: string[] = options.methods || Object.keys(HttpMethod)
 
-  return async function allowedMethods(
-    ctx: TunContext,
-    next: () => Promise<any>
-  ) {
+  return async function allowedMethods(ctx, next) {
     await next()
     if (ctx.res.status || ctx.res.status !== 404) {
       return
