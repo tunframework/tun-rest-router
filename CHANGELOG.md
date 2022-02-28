@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://abc.pwwhb.com/gitlab/tun/tun-rest-router/-/compare/v1.0.0...v2.0.0) (2022-02-28)
+
 ## 1.0.0 (2022-02-26)
 
 
