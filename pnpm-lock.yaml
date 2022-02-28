@@ -3,8 +3,8 @@ lockfileVersion: 5.3
 specifiers:
   '@commitlint/cli': ^16.2.1
   '@commitlint/config-conventional': ^16.2.1
-  '@tunframework/tun': ^2.0.2
-  '@tunframework/tun-bodyparser': ^2.0.3
+  '@tunframework/tun': ^2.0.3
+  '@tunframework/tun-bodyparser': ^2.0.4
   '@types/mocha': ^9.1.0
   '@types/node': ^17.0.19
   '@typescript-eslint/eslint-plugin': ^5.12.1
@@ -28,8 +28,8 @@ dependencies:
   '@commitlint/config-conventional': registry.npmmirror.com/@commitlint/config-conventional/16.2.1
 
 devDependencies:
-  '@tunframework/tun': registry.npmjs.org/@tunframework/tun/2.0.2
-  '@tunframework/tun-bodyparser': registry.npmjs.org/@tunframework/tun-bodyparser/2.0.3
+  '@tunframework/tun': registry.npmjs.org/@tunframework/tun/2.0.3
+  '@tunframework/tun-bodyparser': registry.npmjs.org/@tunframework/tun-bodyparser/2.0.4
   '@types/mocha': registry.npmmirror.com/@types/mocha/9.1.0
   '@types/node': registry.npmmirror.com/@types/node/17.0.19
   '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.12.1_aa3af6382115a42a71cc388b7b2c30b3
@@ -122,20 +122,20 @@ packages:
       is-plain-obj: registry.npmmirror.com/is-plain-obj/2.1.0
     dev: true
 
-  registry.npmjs.org/@tunframework/tun-bodyparser/2.0.3:
-    resolution: {integrity: sha512-h5jWGNBLQ2PAdLOLf62wst1/5rhkFFrzN9aX2ny4x/gk2aCdFgsb1WG9cxrAyJbUHyErrTg1eGF5NlrbQZlAqw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@tunframework/tun-bodyparser/-/tun-bodyparser-2.0.3.tgz}
+  registry.npmjs.org/@tunframework/tun-bodyparser/2.0.4:
+    resolution: {integrity: sha512-PaNyV8IoPg76lzDvNDAoflSWVRW078tWETQvQZI1x0u5G+JnPK2h6QQujewVV3+TISJsACavGPW+g+JTW1Dvfg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@tunframework/tun-bodyparser/-/tun-bodyparser-2.0.4.tgz}
     name: '@tunframework/tun-bodyparser'
-    version: 2.0.3
+    version: 2.0.4
     engines: {node: '>=12.2.0'}
     dependencies:
       '@types/formidable': registry.npmmirror.com/@types/formidable/2.0.4
       formidable: registry.npmmirror.com/formidable/2.0.1
     dev: true
 
-  registry.npmjs.org/@tunframework/tun/2.0.2:
-    resolution: {integrity: sha512-1LSY4KaMAoasYzz0T0EVwuGoalvExnARtjCkusCrbvkrL0CeHj8kn828b0ozc/pco8INtUA4bmeJYBcf6g7LXw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@tunframework/tun/-/tun-2.0.2.tgz}
+  registry.npmjs.org/@tunframework/tun/2.0.3:
+    resolution: {integrity: sha512-a7RmaWhtwUEiqvCIF0a7ufTgv525UyTPg9uhIHP6Aq8St8ffvxHGy877W93LKgkFRDpV3o2O2an/P9n7A/qiaQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@tunframework/tun/-/tun-2.0.3.tgz}
     name: '@tunframework/tun'
-    version: 2.0.2
+    version: 2.0.3
     engines: {node: '>=12.2.0'}
     dev: true
 
