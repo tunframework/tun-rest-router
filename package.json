@@ -1,6 +1,6 @@
 {
   "name": "@tunframework/tun-rest-router",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "rest router for tun",
   "main": "lib/esm/index.js",
   "types": "lib/types/index.d.ts",
