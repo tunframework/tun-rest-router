@@ -1,6 +1,6 @@
 // @ts-check
 
-import { HttpMethod } from '@tunframework/tun'
+import { HttpError, HttpMethod } from '@tunframework/tun'
 import type { TunComposable, TunContext } from '@tunframework/tun'
 import { matchRoute, pathToRegexp } from './route-utils.js'
 import type { Route } from './route-utils.js'
@@ -17,13 +17,20 @@ import type { Route } from './route-utils.js'
  * ```
  */
 
+export interface RestifyRouterOption {
+  prefix?: string
+  methods?: Array<keyof typeof HttpMethod>
+}
+
 export class RestifyRouter {
   _routes: Route[] = []
   // temp prefix, consumed in addRoute()
   _prefix = ''
+  _methods?: Array<keyof typeof HttpMethod>
 
-  constructor({ prefix = '' } = {}) {
+  constructor({ prefix = '', methods }: RestifyRouterOption = {}) {
     this.prefix(prefix)
+    this._methods = methods
   }
 
   prefix(_prefix: string) {
@@ -32,7 +39,6 @@ export class RestifyRouter {
   }
 
   routes(): TunComposable<TunContext> {
-    // return this._routes;
     return (ctx, next) => {
       let route = matchRoute(ctx.req.method, ctx.req.path, this._routes)
       if (!route) {
@@ -102,6 +108,69 @@ export class RestifyRouter {
 
   patch(pathname: string, handler: TunComposable<TunContext>) {
     return this.addRoute('PATCH', pathname, handler)
+  }
+
+  /**
+   * Fufill response header if all middleware resolved and `ctx.status` is empty or 404(not_found).
+   */
+  allowedMethods(
+    options: {
+      throw?: boolean
+      notImplemented?: () => Error
+    } = {}
+  ): TunComposable<TunContext> {
+    const implemented: string[] = this._methods || Object.keys(HttpMethod)
+
+    return async function allowedMethods(ctx, next) {
+      await next()
+      if (ctx.res.status || ctx.res.status !== 404) {
+        return
+      }
+
+      const allowed: Record<string, string> = {}
+      const matchedRoute: Route = ctx.state.matchedRoute
+      if (matchedRoute) {
+        matchedRoute.methods.forEach((method) => {
+          allowed[method] = method
+        })
+      }
+
+      const allowedArr = Object.keys(allowed)
+
+      if (implemented.indexOf(ctx.req.method) > -1) {
+        if (options.throw) {
+          let throwable = null
+          if (typeof options.notImplemented === 'function') {
+            throwable = options.notImplemented()
+          } else {
+            throwable = new HttpError({ status: 501 })
+          }
+          throw throwable
+        } else {
+          ctx.res.status = 501
+          ctx.res.set('Allow', allowedArr)
+        }
+      } else if (allowedArr.length) {
+        if (ctx.req.method === 'OPTIONS') {
+          ctx.res.status = 200
+          ctx.body = ''
+          ctx.res.set('Allow', allowedArr)
+        } else if (!allowed[ctx.req.method]) {
+          if (options.throw) {
+            let throwable = null
+            if (typeof options.notImplemented === 'function') {
+              throwable = options.notImplemented()
+            } else {
+              throwable = new HttpError({ status: 405 })
+            }
+            throw throwable
+          } else {
+            ctx.res.status = 405
+            ctx.res.set('Allow', allowedArr)
+          }
+        }
+      }
+    }
   }
 }
 

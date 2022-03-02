@@ -2,8 +2,7 @@ import type { Server } from 'http'
 import type { AddressInfo, ListenOptions } from 'net'
 import { TunApplication } from '@tunframework/tun'
 
-import { RestifyRouter } from '../../src/index.js'
-import { allowedMethods } from '../../src/route-utils.js'
+import { RestifyRouter } from '../src/index.js'
 
 import { bodyparser } from '@tunframework/tun-bodyparser'
 
@@ -20,7 +19,7 @@ export function prepareApp() {
     ) => {
       app.use(bodyparser())
       app.use(router.routes())
-      app.use(allowedMethods())
+      app.use(router.allowedMethods())
       const server = app.listen(option)
       server.on('listening', async () => {
         let addr = (server.address() || {}) as AddressInfo

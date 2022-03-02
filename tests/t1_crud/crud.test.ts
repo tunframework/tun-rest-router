@@ -2,7 +2,7 @@ import assert from 'assert'
 
 import { RestifyRouter } from '../../src/index.js'
 
-import { prepareApp } from './boot.js'
+import { prepareApp } from '../boot.js'
 
 import fetch from 'node-fetch'
 
