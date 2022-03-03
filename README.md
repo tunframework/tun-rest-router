@@ -10,10 +10,9 @@ npm install @tunframework/tun{,-bodyparser,-rest-router}
 
 ## example
 
-```ts
+```js
 import { TunApplication } from '@tunframework/tun'
 import { bodyparser } from '@tunframework/tun-bodyparser'
-import type { AddressInfo, ListenOptions } from 'net'
 import { RestifyRouter } from '@tunframework/tun-rest-router'
 
 const app = new TunApplication()
@@ -27,12 +26,11 @@ const router = new RestifyRouter()
 
 app.use(router.routes())
 app.use(router.allowedMethods())
-const option: ListenOptions = { host: '127.0.0.1', port: 0 }
-const server = app.listen(option)
+const server = app.listen({ host: '127.0.0.1', port: 0 })
 
 server.on('listening', async () => {
-  let addr = (server.address() || {}) as AddressInfo
-  const url = 'http://' + [addr.address, addr.port].filter(Boolean).join(':')
-  console.log(`listening: ${url}`)
+  // @type {AddressInfo}
+  let addr = server.address() || {}
+  console.log(`listening: http://${addr.address}:${addr.port}`)
 })
 ```
