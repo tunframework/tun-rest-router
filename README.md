@@ -27,9 +27,9 @@ const router = new RestifyRouter()
 
 app.use(router.routes())
 app.use(router.allowedMethods())
+const option: ListenOptions = { host: '127.0.0.1', port: 0 }
 const server = app.listen(option)
 
-const option: ListenOptions = { host: '127.0.0.1', port: 0 }
 server.on('listening', async () => {
   let addr = (server.address() || {}) as AddressInfo
   const url = 'http://' + [addr.address, addr.port].filter(Boolean).join(':')
